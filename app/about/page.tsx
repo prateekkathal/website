@@ -12,11 +12,16 @@ export const metadata: Metadata = {
 const lines: TermLine[] = [
   { kind: "command", text: "cat about.md" },
   { kind: "output", text: `# ${site.name}`, tone: "bright" },
-  ...site.about.map(
-    (line): TermLine => ({ kind: "output", text: line }),
-  ),
+  ...site.about.map((line): TermLine => ({ kind: "output", text: line })),
   { kind: "command", text: "ls focus/" },
   { kind: "output", text: site.focus.join("   "), tone: "accent" },
+  { kind: "command", text: "cat skills.txt" },
+  { kind: "output", text: site.skills.join("  ·  "), tone: "accent" },
+  { kind: "command", text: "cat experience.log" },
+  ...site.experience.flatMap((e): TermLine[] => [
+    { kind: "output", text: `${e.role} @ ${e.org}`, tone: "bright" },
+    { kind: "output", text: `  ${e.period} · ${e.place}`, tone: "muted" },
+  ]),
 ];
 
 export default function About() {
@@ -24,12 +29,12 @@ export default function About() {
     <section className="space-y-9">
       <Typewriter lines={lines} />
 
-      <FadeIn delay={2.2}>
+      <FadeIn delay={3}>
         <div className="flex flex-wrap gap-x-8 gap-y-3 text-sm text-muted">
-          <Link
-            href="/contact"
-            className="transition-colors hover:text-accent"
-          >
+          <Link href="/" className="transition-colors hover:text-accent">
+            <span className="text-prompt">$</span> run live commands
+          </Link>
+          <Link href="/contact" className="transition-colors hover:text-accent">
             <span className="text-prompt">$</span> ./contact.sh
           </Link>
           {site.socials.map((s) => (

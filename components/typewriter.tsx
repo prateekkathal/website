@@ -1,6 +1,6 @@
 "use client";
 
-import { useEffect, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import { useReducedMotion } from "motion/react";
 
 export type TermLine =
@@ -24,19 +24,29 @@ export function Typewriter({
   startDelay = 250,
   className = "",
   showReadyPrompt = true,
+  onDone,
 }: {
   lines: TermLine[];
   speed?: number;
   startDelay?: number;
   className?: string;
   showReadyPrompt?: boolean;
+  onDone?: () => void;
 }) {
   const reduce = useReducedMotion();
   const [line, setLine] = useState(0);
   const [chars, setChars] = useState(0);
+  const doneFiredRef = useRef(false);
 
   useEffect(() => {
-    if (reduce || line >= lines.length) return;
+    if (reduce || line >= lines.length) {
+      // Fire once when the sequence finishes (or immediately under reduced motion).
+      if (!doneFiredRef.current && lines.length > 0) {
+        doneFiredRef.current = true;
+        onDone?.();
+      }
+      return;
+    }
     const current = lines[line];
     let timer: ReturnType<typeof setTimeout>;
     if (current.kind === "command") {
