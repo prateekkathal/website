@@ -1,4 +1,4 @@
-import { site } from "./site";
+import { site, skillGroups, aiAgents, aiStack } from "./site";
 
 export type Tone =
   | "default"
@@ -21,11 +21,13 @@ type Command = {
   name: string;
   aliases?: string[];
   desc: string;
-  run: () => OutLine[];
+  run: (args: string[]) => OutLine[];
   hidden?: boolean;
 };
 
 const L = (text: string, tone?: Tone): OutLine => ({ text, tone });
+
+const flagList = `${skillGroups.map((g) => `--${g.flag}`).join("  ")}  --all`;
 
 const commands: Command[] = [
   {
@@ -35,7 +37,7 @@ const commands: Command[] = [
       L("available commands:", "muted"),
       ...visibleCommands().map((c) => L(`  ${c.name.padEnd(11)} ${c.desc}`)),
       L(""),
-      L("tip: try `about`, `skills`, or `contact`.", "muted"),
+      L("some take flags — e.g. `skills --backend`, `skills --all`.", "muted"),
     ],
   },
   {
@@ -52,13 +54,44 @@ const commands: Command[] = [
   {
     name: "skills",
     aliases: ["stack"],
-    desc: "tools i reach for",
-    run: () => [L(site.skills.join("  ·  "), "accent")],
+    desc: "tools i reach for — try `skills --backend`",
+    run: (args) => {
+      const flag = (args[0] ?? "").replace(/^--/, "").toLowerCase();
+
+      if (!flag) {
+        return [
+          L(`top 5 — ${site.skillsTop.join("  ·  ")}`, "accent"),
+          L(""),
+          L(`filter: ${flagList}`, "muted"),
+        ];
+      }
+      if (flag === "all") {
+        return skillGroups.flatMap((g) => [
+          L(`# ${g.label}`, "bright"),
+          L(g.items.join("  ·  ")),
+          L(""),
+        ]);
+      }
+      const group = skillGroups.find((g) => g.flag === flag);
+      if (!group) {
+        return [
+          { text: `unknown filter: --${flag}`, tone: "error" },
+          L(`try: ${flagList}`, "muted"),
+        ];
+      }
+      return [L(`# ${group.label}`, "bright"), L(group.items.join("  ·  "))];
+    },
   },
   {
-    name: "focus",
-    desc: "what i optimise for",
-    run: () => site.focus.map((f) => L(`→ ${f}`, "accent")),
+    name: "ai",
+    desc: "the AI-first toolkit",
+    run: () => [
+      L("coding agents in my daily loop:", "muted"),
+      L(aiAgents.join("  ·  "), "accent"),
+      L(""),
+      L("ai · ml stack:", "muted"),
+      L(aiStack.join("  ·  ")),
+    ],
   },
   {
     name: "experience",
@@ -69,6 +102,21 @@ const commands: Command[] = [
         L(`${e.role} @ ${e.org}`, "bright"),
         L(`  ${e.period} · ${e.place}`, "muted"),
       ]),
+  },
+  {
+    name: "education",
+    aliases: ["edu"],
+    desc: "the paper trail",
+    run: () =>
+      site.education.flatMap((e) => [
+        L(`${e.title} — ${e.org}`, "bright"),
+        L(`  ${e.period} · ${e.place}`, "muted"),
+      ]),
+  },
+  {
+    name: "focus",
+    desc: "what i optimise for",
+    run: () => site.focus.map((f) => L(`→ ${f}`, "accent")),
   },
   {
     name: "now",
@@ -107,7 +155,10 @@ const commands: Command[] = [
     name: "ls",
     desc: "list topics",
     run: () => [
-      L("about.md   skills.txt   experience.log   now.txt   links/   contact.sh", "accent"),
+      L(
+        "about.md  skills.txt  experience.log  education.log  now.txt  links/  contact.sh",
+        "accent",
+      ),
     ],
   },
   {
@@ -134,11 +185,12 @@ export function visibleCommandNames(): string[] {
 export function runCommand(input: string): OutLine[] {
   const trimmed = input.trim();
   const lc = trimmed.toLowerCase();
-  const [first, ...rest] = trimmed.split(/\s+/);
-  const name = first.toLowerCase();
+  const parts = trimmed.split(/\s+/);
+  const name = parts[0].toLowerCase();
+  const args = parts.slice(1);
 
   // `echo <args>` prints its arguments.
-  if (name === "echo") return [L(rest.join(" "))];
+  if (name === "echo") return [L(args.join(" "))];
 
   const found = commands.find(
     (c) =>
@@ -149,7 +201,7 @@ export function runCommand(input: string): OutLine[] {
   );
 
   if (!found) {
-    return [{ text: `command not found: ${first} — type 'help'`, tone: "error" }];
+    return [{ text: `command not found: ${parts[0]} — type 'help'`, tone: "error" }];
   }
-  return found.run();
+  return found.run(args);
 }

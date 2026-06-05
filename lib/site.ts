@@ -15,32 +15,24 @@ export const site = {
   // Short bio shown on /about and via the `about` command — deliberately tight.
   about: [
     "AI-first developer. I design and ship software with AI at the core — from prototype to production.",
-    "I've been building for the web since I was 13; today that means pairing strong product instincts with LLMs, agents, and a lot of TypeScript.",
-    "Based in Toronto, building at Crowdlinker.",
+    "Coding agents — Claude Code, Codex, Cursor, Copilot — are part of my daily loop, on top of a decade of full-stack engineering.",
+    "Senior Technical Lead at Crowdlinker, based in Toronto.",
   ],
 
   focus: ["ai-products", "full-stack", "fast-delivery"],
 
-  // Tools I reach for (surfaced by the `skills` command).
-  skills: [
-    "typescript",
-    "react",
-    "next.js",
-    "node",
-    "python",
-    "postgres",
-    "aws",
-    "docker",
-    "llms & agents",
-  ],
+  // Headline tools (surfaced by `skills` with no args). Grouped lists live in
+  // `skillGroups` below — reached via `skills --backend`, `skills --devops`, etc.
+  skillsTop: ["NestJS", "TypeScript", "Astro", "Vite", "PostgreSQL + pgVector"],
 
   experience: [
-    {
-      role: "full-stack / AI developer",
-      org: "Crowdlinker",
-      period: "2018 — now",
-      place: "Toronto, ON",
-    },
+    { role: "Senior Technical Lead", org: "Crowdlinker", period: "2018 — now", place: "Toronto, ON" },
+    { role: "Software Developer", org: "SquareBoat Solutions", period: "2014 — 2017", place: "India" },
+  ],
+
+  education: [
+    { title: "Web Design & Development", org: "Lambton College", period: "2017 — 2019", place: "Canada" },
+    { title: "B.Tech, Computer Science", org: "MD University", period: "2012 — 2016", place: "India" },
   ],
 
   now: "shipping AI-first features, exploring agentic workflows, and tinkering with this terminal.",
@@ -61,3 +53,77 @@ export const site = {
 } as const;
 
 export type Social = (typeof site.socials)[number];
+
+// AI-first day-to-day: coding agents + the AI/ML stack I build on.
+export const aiAgents = ["Claude Code", "Codex", "Cursor", "Copilot", "Conductor"];
+export const aiStack = [
+  "LlamaIndex",
+  "pgVector",
+  "AWS S3 Vectors",
+  "Speechmatics",
+  "Deepgram",
+  "AWS Textract",
+  "AWS Rekognition",
+  "GCP Document AI",
+  "GCP Vision",
+  "Azure Document Intelligence",
+];
+
+export type SkillGroup = { flag: string; label: string; items: string[] };
+
+export const skillGroups: SkillGroup[] = [
+  {
+    flag: "frontend",
+    label: "frontend",
+    items: ["React", "Next.js", "Astro", "Vite", "React Native", "TypeScript", "Tailwind CSS"],
+  },
+  {
+    flag: "backend",
+    label: "backend",
+    items: ["NestJS", "Node.js", "Bun", "Python", "PayloadCMS", "LlamaIndex", "PostgreSQL", "pgVector", "MongoDB Atlas"],
+  },
+  {
+    flag: "devops",
+    label: "devops · cloud",
+    items: [
+      "Terraform",
+      "Docker",
+      "Kubernetes",
+      "Sentry",
+      "AWS (ECS, EKS, EC2, ELB, Lambda, S3, SES, SNS, OpenSearch, S3 Vectors, ACM)",
+      "Azure (Container Apps, Static Web Apps, Functions, Service Bus, Log Analytics)",
+      "GCP (GCS, Compute)",
+      "DigitalOcean (Droplets, DBs)",
+      "Vultr (Compute, DBs)",
+    ],
+  },
+  {
+    flag: "ai",
+    label: "ai · ml",
+    items: [...aiAgents, ...aiStack],
+  },
+  {
+    flag: "integrations",
+    label: "integrations",
+    items: [
+      "Twilio (SMS/MMS/Voice)",
+      "MCP (GitHub, Notion, Figma, Linear, Google)",
+      "Autodesk + 3DVista",
+      "Polar.sh",
+      "Clerk",
+      "Better Auth",
+      "Auth0",
+      "Google Maps + Places",
+    ],
+  },
+  {
+    flag: "tools",
+    label: "tools",
+    items: ["Notion", "Linear", "Discourse"],
+  },
+  {
+    flag: "compliance",
+    label: "compliance",
+    items: ["HIPAA", "SOC 2 Type II", "PHIPA"],
+  },
+];

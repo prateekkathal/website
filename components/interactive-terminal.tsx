@@ -194,8 +194,8 @@ export function InteractiveTerminal({ className = "" }: { className?: string }) 
         <p className="mt-3 text-xs text-muted">
           type a command to explore — try{" "}
           <span className="text-accent">help</span>,{" "}
-          <span className="text-accent">about</span>, or{" "}
-          <span className="text-accent">contact</span>.
+          <span className="text-accent">skills</span>, or{" "}
+          <span className="text-accent">ai</span>.
         </p>
       )}
 
