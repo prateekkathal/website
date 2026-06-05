@@ -23,7 +23,7 @@ export const site = {
 
   // Headline tools (surfaced by `skills` with no args). Grouped lists live in
   // `skillGroups` below — reached via `skills --backend`, `skills --devops`, etc.
-  skillsTop: ["NestJS", "TypeScript", "Astro", "Vite", "PostgreSQL + pgVector"],
+  skillsTop: ["NestJS", "Laravel", "Next.js", "PostgreSQL", "TypeScript"],
 
   experience: [
     { role: "Senior Technical Lead", org: "Crowdlinker", period: "2018 — now", place: "Toronto, ON" },
