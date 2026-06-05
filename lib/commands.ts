@@ -13,6 +13,8 @@ export type OutLine = {
   tone?: Tone;
   href?: string;
   external?: boolean;
+  icon?: string; // brand glyph key (github | linkedin | x)
+  label?: string; // plain (un-highlighted) prefix shown before the link
 };
 
 type Command = {
@@ -79,7 +81,9 @@ const commands: Command[] = [
     desc: "find me online",
     run: () =>
       site.socials.map((s) => ({
-        text: `${s.label.toLowerCase().padEnd(9)} ${s.href.replace(/^https?:\/\/(www\.)?/, "")}`,
+        icon: s.label.toLowerCase(),
+        label: s.label.toLowerCase(),
+        text: s.href.replace(/^https?:\/\/(www\.)?/, ""),
         href: s.href,
         external: true,
         tone: "accent" as Tone,

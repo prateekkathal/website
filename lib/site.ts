@@ -50,7 +50,7 @@ export const site = {
   socials: [
     { label: "GitHub", href: "https://github.com/prateekkathal", handle: "prateekkathal" },
     { label: "LinkedIn", href: "https://www.linkedin.com/in/prateekkathal/", handle: "prateekkathal" },
-    { label: "X", href: "https://twitter.com/prateekkathal", handle: "@prateekkathal" },
+    { label: "X", href: "https://x.com/prateekkathal", handle: "@prateekkathal" },
   ],
 
   nav: [

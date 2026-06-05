@@ -5,6 +5,7 @@ import { site } from "@/lib/site";
 import { TerminalWindow } from "@/components/terminal-window";
 import { Footer } from "@/components/footer";
 import { PageTransition } from "@/components/motion/page-transition";
+import { BackgroundFX } from "@/components/background-fx";
 
 const jetbrainsMono = JetBrains_Mono({
   variable: "--font-jetbrains",
@@ -41,7 +42,8 @@ export default function RootLayout({
   return (
     <html lang="en" className={`${jetbrainsMono.variable} h-full antialiased`}>
       <body className="flex min-h-full flex-col">
-        <main className="mx-auto flex w-full max-w-4xl flex-1 flex-col px-4 py-6 sm:px-6 sm:py-12">
+        <BackgroundFX />
+        <main className="relative z-10 mx-auto flex w-full max-w-5xl flex-1 flex-col px-4 py-6 sm:px-6 sm:py-12">
           <TerminalWindow>
             <PageTransition>{children}</PageTransition>
           </TerminalWindow>
