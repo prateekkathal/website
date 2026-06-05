@@ -57,9 +57,9 @@ export type Social = (typeof site.socials)[number];
 // AI-first day-to-day: coding agents + the AI/ML stack I build on.
 export const aiAgents = ["Claude Code", "Codex", "Cursor", "Copilot", "Conductor"];
 export const aiStack = [
+  "OpenAI",
+  "Gemini",
   "LlamaIndex",
-  "pgVector",
-  "AWS S3 Vectors",
   "Speechmatics",
   "Deepgram",
   "AWS Textract",
@@ -75,12 +75,47 @@ export const skillGroups: SkillGroup[] = [
   {
     flag: "frontend",
     label: "frontend",
-    items: ["React", "Next.js", "Astro", "Vite", "React Native", "TypeScript", "Tailwind CSS"],
+    items: [
+      "React",
+      "Next.js",
+      "Astro",
+      "Vite",
+      "Vue.js",
+      "React Native",
+      "Electron",
+      "TypeScript",
+      "Tailwind CSS",
+      "shadcn/ui",
+      "MUI",
+    ],
   },
   {
     flag: "backend",
     label: "backend",
-    items: ["NestJS", "Node.js", "Bun", "Python", "PayloadCMS", "LlamaIndex", "PostgreSQL", "pgVector", "MongoDB Atlas"],
+    items: [
+      "NestJS",
+      "Node.js",
+      "Bun",
+      "ElysiaJS",
+      "Python",
+      "Laravel",
+      "PHP",
+      "PayloadCMS",
+      "Contentful CMS",
+    ],
+  },
+  {
+    flag: "database",
+    label: "database · search",
+    items: [
+      "PostgreSQL",
+      "pgVector",
+      "MongoDB Atlas",
+      "MySQL",
+      "Supabase",
+      "AWS OpenSearch",
+      "AWS S3 Vectors",
+    ],
   },
   {
     flag: "devops",
@@ -90,7 +125,7 @@ export const skillGroups: SkillGroup[] = [
       "Docker",
       "Kubernetes",
       "Sentry",
-      "AWS (ECS, EKS, EC2, ELB, Lambda, S3, SES, SNS, OpenSearch, S3 Vectors, ACM)",
+      "AWS (ECS, EKS, EC2, ELB, Lambda, S3, SES, SNS, ACM)",
       "Azure (Container Apps, Static Web Apps, Functions, Service Bus, Log Analytics)",
       "GCP (GCS, Compute)",
       "DigitalOcean (Droplets, DBs)",
@@ -107,6 +142,7 @@ export const skillGroups: SkillGroup[] = [
     label: "integrations",
     items: [
       "Twilio (SMS/MMS/Voice)",
+      "Stripe",
       "MCP (GitHub, Notion, Figma, Linear, Google)",
       "Autodesk + 3DVista",
       "Polar.sh",
@@ -119,7 +155,18 @@ export const skillGroups: SkillGroup[] = [
   {
     flag: "tools",
     label: "tools",
-    items: ["Notion", "Linear", "Discourse"],
+    items: ["Notion", "Linear", "Figma", "Discourse", "BrowserStack"],
+  },
+  {
+    flag: "marketing",
+    label: "marketing · seo",
+    items: [
+      "Google Ads",
+      "Google Search Console",
+      "Lighthouse",
+      "PageSpeed Insights",
+      "SEO",
+    ],
   },
   {
     flag: "compliance",
