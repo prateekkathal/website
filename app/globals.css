@@ -2,11 +2,11 @@
 
 /* ---- Terminal theme tokens (Tailwind v4 @theme exposes them as utilities) ---- */
 @theme {
-  --color-background: #04060a;
-  --color-surface: #070a0f;
-  --color-surface-2: #0a0e14;
-  --color-border: #161d29;
-  --color-foreground: #c4cee0;
+  --color-background: #000000;
+  --color-surface: #000000;
+  --color-surface-2: #0a0b0e;
+  --color-border: #20262f;
+  --color-foreground: #c8d2e2;
   --color-muted: #5f6b80;
   --color-accent: #009ff9;
   --color-accent-soft: #4cc2ff;
@@ -35,21 +35,7 @@ body {
   text-rendering: optimizeLegibility;
 }
 
-/* Faint grid + radial glow behind everything */
-body::before {
-  content: "";
-  position: fixed;
-  inset: 0;
-  z-index: -1;
-  pointer-events: none;
-  background-image:
-    radial-gradient(820px circle at 50% -12%, rgba(0, 159, 249, 0.07), transparent 60%),
-    linear-gradient(rgba(255, 255, 255, 0.018) 1px, transparent 1px),
-    linear-gradient(90deg, rgba(255, 255, 255, 0.018) 1px, transparent 1px);
-  background-size: 100% 100%, 44px 44px, 44px 44px;
-}
-
-/* Subtle scanlines overlay */
+/* Subtle CRT scanlines overlay — the only texture on the black */
 body::after {
   content: "";
   position: fixed;
